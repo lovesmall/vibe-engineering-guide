@@ -183,7 +183,8 @@
 
 ### 6.2 怎么做
 
-- 只动 `transform` 和 `opacity`。**必须**不对 `width`、`height`、`top`、`left`、`margin` 做动画；尺寸变化用 `transform: scale` 或 FLIP / View Transitions API。
+- 位置、大小、旋转的变化只用 `transform`，出现和消失用 `opacity`。**必须**不对 `width`、`height`、`top`、`left`、`margin` 等会引起重新布局的属性做动画；尺寸变化用 `transform: scale` 或 FLIP / View Transitions API。
+- 例外：颜色、背景色、边框色的过渡（如 hover）可以直接过渡，时长用 instant 或 fast；SVG 描线动画（如对勾）用 `stroke-dashoffset`。
 - 进入用 ease-out，离开用 ease-in，且**离开比进入快**（约为进入时长的 60%–75%）。
 - 位移距离小：弹出层从 4–8px 外滑入，配合透明度，而不是从屏幕边缘飞进来。缩放从 0.95–0.98 开始，不从 0 开始。
 - 弹出层的变换原点（`transform-origin`）对准触发它的元素。
@@ -281,7 +282,7 @@ AI 看不到自己写出的界面，所以**必须**先截图再检查，不凭�
 **动效**
 
 - [ ] 每个动效都属于"反馈、连续性、引导注意"之一
-- [ ] 只动 transform 和 opacity，时长和缓动来自 token
+- [ ] 没有对会引起重新布局的属性做动画（例外见 6.2），时长和缓动来自 token
 - [ ] 高频操作没有拖慢的动效，动画不阻塞输入
 - [ ] 支持 `prefers-reduced-motion`
 
